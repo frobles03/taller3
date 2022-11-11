@@ -5,8 +5,10 @@
       <!-- <strong> <router-link to="/trabajo">{{product.title}}</router-link>  </strong> :{{ product.salary }} -->
 
       <li>
-        
-          <strong>nombre del producto: </strong> {{ product.name }}
+
+    
+       
+          <strong>nombre del producto: </strong> <router-link :to="{name:'about', params:{id:product._id}}">{{product.name}}</router-link>  
         
 
         
