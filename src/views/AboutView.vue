@@ -28,9 +28,20 @@
         <strong>descripcion del producto:</strong> {{ review[0].productId.description }}
       </p>
       
+
+      <h1>reviews:</h1>
+      <hr>
       <div v-for="rev in review" v-bind:key="rev._id">
         
+        <li>
+        <p>  
+          <strong>Usiario:</strong>  {{ rev.user.name}}
+        </p>
+<p>
         <strong>review:</strong> {{ rev.review}}
+      </p>
+        <hr>
+      </li>
       </div>
 
       
