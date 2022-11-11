@@ -6,15 +6,16 @@
 
       <li>
 
-    
-       
-          <strong>nombre del producto: </strong> <router-link :to="{name:'about', params:{id:product._id}}">{{product.name}}</router-link>  
-        
 
-        
-          <strong> fecha de creacion</strong> {{ product.createdAt }}
-      
-      
+
+        <strong>nombre del producto: </strong>
+        <router-link :to="{ name: 'about', params: { id: product._id } }">{{ product.name }}</router-link>
+
+
+
+        <strong> fecha de creacion</strong> {{ product.createdAt }}
+
+
 
         <div v-for="(images) in product.images" v-bind:key="images">
 
@@ -30,6 +31,9 @@
 <script>
 // @ is an alias to /src    lista de los trabajos y que si se apreta uno de esos traabajos ver que aplicantes 
 // import HelloWorld from '@/components/HelloWorld.vue'
+
+
+
 import axios from 'axios'
 export default {
   name: 'productsView',
