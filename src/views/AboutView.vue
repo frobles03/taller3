@@ -1,5 +1,6 @@
 <template>
   <div class="Trabajo">
+
     <h1>bienvenido al taller 3 </h1>
 
     <h1></h1>
@@ -32,31 +33,27 @@
       <h1>reviews:</h1>
       <hr>
       <div v-for="rev in review" v-bind:key="rev._id">
-
-        <li>
-          <p>
-            <strong>Usiario:</strong> {{ rev.user.name }}
-          </p>
-          <p>
-            <strong>review:</strong> {{ rev.review }}
-          </p>
-          <hr>
-        </li>
-      </div>
-
-      <div>
-        
+        <reviewComponent :review="rev" />
 
       </div>
 
       <div>
-      <label for="review">review:</label><br>
-      <input id="name" type="text" v-model="a" required/>
-      
 
 
-       
-    </div>
+      </div>
+
+      <div>
+        <!-- <label for="review">Deja tu review:</label><br>
+        <input id="name" type="text" v-model="a" required /> -->
+        <form class="d-flex flex-column gap-2" id="formReview" @submit.prevent="reviewPost()">
+          <label for="review">Deja tu Review</label>
+          <textarea id="review" v-model="msg"></textarea>
+          <button type="submit">Enviar review</button>
+        </form>
+
+
+
+      </div>
 
 
     </div>
@@ -68,9 +65,7 @@
 // @ is an alias to /src    lista de los trabajos y que si se apreta uno de esos traabajos ver que aplicantes 
 // import HelloWorld from '@/components/HelloWorld.vue'
 import axios from 'axios'
-
-
-
+import reviewComponent from '@/components/HelloWorld.vue'
 
 export default {
 
@@ -78,14 +73,47 @@ export default {
   data() {
     return {
       review: null,
-      text: ''
-      
+      text: '',
+      msg: ''
+
     }
   },
 
-methods:{
-  
-},
+  components: {
+    reviewComponent
+  },
+
+  methods: {
+    reviewPost() {
+    //   axios.post('//170.239.85.65:4000/products/' ++ '/reviews', JSON.stringify(vue.review),
+    //  { headers: { apikey: '549a1f20-84aa-41a5-ad24-13ac557617e65' } })
+
+      axios.post("http://170.239.85.65:4000/products/" +  this.$route.params.id + "/reviews", 
+      JSON.stringify({
+        review: this.msg,
+                // user: { 
+                //     name:'Fernando Robles',
+                //     email: 'f.robles03@ufromail.cl'
+
+
+
+                // }
+                
+      }),
+        {
+          headers: {
+            apikey: "549a1f20-84aa-41a5-ad24-13ac557617e65",
+            "Content-Type": "application/json"
+          }
+        })
+        .then(window.location.reload())
+        .catch(err => {
+          console.log(err)
+        })
+    }
+
+
+  },
 
   mounted() {
     let vue = this;
@@ -94,7 +122,11 @@ methods:{
         vue.review = response.data;
         console.log(vue.review)
       })
-      axios.post('//170.239.85.65:4000/products/' + this.$route.params.id + '/reviews', JSON.stringify(vue.review), { headers: { apikey: '549a1f20-84aa-41a5-ad24-13ac557617e65'} } )
+ 
   }
+
+
+
+
 }
 </script>
